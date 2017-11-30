@@ -1,7 +1,6 @@
 (ns derekchiang.ring-proxy.core
   (:require [clojure.tools.logging :as log]
             [clojure.string :refer [join split replace-first]]
-            [clojure.tools.trace :refer [trace]]
             [ring.middleware.cookies :as cookies]
             [puppetlabs.http.client.sync :refer [request]])
   (:import (java.net URI)
@@ -63,7 +62,6 @@
                        proxied-path)]
     (cookies/wrap-cookies
      (fn [req]
-       (trace "uri" (:uri req))
        (if (or (and (string? proxied-path)
                     (or (.startsWith (:uri req) (str proxied-path "/"))
                         (= (:uri req) proxied-path)))
@@ -95,7 +93,6 @@
   (reset! proxy-opts {}))
 
 (defn- apply-wrap-proxy [handler opts]
-  (trace "opts" opts)
   (apply wrap-proxy handler opts))
 
 (defn wrap-dynamic-proxy
@@ -106,6 +103,5 @@
   (fn [req]
     ((->> @proxy-opts
           vals
-          (trace "vals")
           (reduce apply-wrap-proxy handler)) req)))
 

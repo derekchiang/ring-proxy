@@ -5,8 +5,8 @@
             :url "http://www.apache.org/licenses/LICENSE-2.0"}
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/tools.logging "0.4.0"]
-                 [org.clojure/tools.trace "0.7.9"]
                  [ring/ring-core "1.6.3"]
                  [puppetlabs/http-client "0.9.0"]]
   :profiles {:dev {:dependencies [[ring/ring-jetty-adapter "1.6.3"]
-                                  [clj-http "3.7.0"]]}})
+                                  [clj-http "3.7.0"]
+                                  [org.clojure/tools.trace "0.7.9"]]}})
