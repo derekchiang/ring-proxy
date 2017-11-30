@@ -2,8 +2,6 @@
   (:require [clojure.test :refer :all]
             [ring.adapter.jetty :refer [run-jetty]]
             [ring-dynamic-proxy.core :refer :all]
-            [puppetlabs.ring-middleware.core :as puppet]
-            [tailrecursion.ring-proxy :as tr]
             [clj-http.client :as client]))
 
 (defn proxy-handler [request]

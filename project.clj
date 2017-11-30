@@ -9,6 +9,4 @@
                  [ring/ring-core "1.6.3"]
                  [puppetlabs/http-client "0.9.0"]]
   :profiles {:dev {:dependencies [[ring/ring-jetty-adapter "1.6.3"]
-                                  [clj-http "3.7.0"]
-                                  [puppetlabs/ring-middleware "1.0.0"]
-                                  [tailrecursion/ring-proxy "2.0.0-SNAPSHOT"]]}})
+                                  [clj-http "3.7.0"]]}})
