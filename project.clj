@@ -9,4 +9,5 @@
                  [puppetlabs/http-client "0.9.0"]]
   :profiles {:dev {:dependencies [[ring/ring-jetty-adapter "1.6.3"]
                                   [clj-http "3.7.0"]
-                                  [org.clojure/tools.trace "0.7.9"]]}})
+                                  [org.clojure/tools.trace "0.7.9"]]}}
+  :deploy-repositories [["releases" :clojars]])
