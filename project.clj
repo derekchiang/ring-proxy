@@ -1,8 +1,8 @@
-(defproject ring-dynamic-proxy "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
-  :url "http://example.com/FIXME"
-  :license {:name "Eclipse Public License"
-            :url "http://www.eclipse.org/legal/epl-v10.html"}
+(defproject derekchiang/ring-proxy "1.0.0"
+  :description "Dynamic and static proxy for Ring"
+  :url "https://github.com/derekchiang/ring-proxy"
+  :license {:name "Apache License v2.0"
+            :url "http://www.apache.org/licenses/LICENSE-2.0"}
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/tools.logging "0.4.0"]
                  [org.clojure/tools.trace "0.7.9"]

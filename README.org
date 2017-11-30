@@ -1,4 +1,4 @@
-* ring-dynamic-proxy
+* ring-proxy
 
 Dynamic and static proxy for [[https://github.com/ring-clojure/ring][Ring]]. The static proxy is mostly borrowed from
 [[https://github.com/puppetlabs/ring-middleware][puppetlabs/ring-middleware]].

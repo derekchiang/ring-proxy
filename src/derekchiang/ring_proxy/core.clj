@@ -1,4 +1,4 @@
-(ns ring-dynamic-proxy.core
+(ns derekchiang.ring-proxy.core
   (:require [clojure.tools.logging :as log]
             [clojure.string :refer [join split replace-first]]
             [clojure.tools.trace :refer [trace]]
