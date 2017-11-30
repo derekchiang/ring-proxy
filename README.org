@@ -5,6 +5,13 @@ Dynamic and static proxy for [[https://github.com/ring-clojure/ring][Ring]]. The
 
 ** Usage
 
+To use ~ring-proxy~, add this project as a dependency in your Leiningen/Boot
+project file:
+
+#+BEGIN_SRC clojure
+[derekchiang/ring-proxy "1.0.0"]
+#+END_SRC
+
 *** Dynamic Proxy
 
 A dynamic proxy is one whose behavior can be modified after it's created.
