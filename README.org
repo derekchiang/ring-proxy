@@ -9,7 +9,14 @@ To use ~ring-proxy~, add this project as a dependency in your Leiningen/Boot
 project file:
 
 #+BEGIN_SRC clojure
-[derekchiang/ring-proxy "1.0.0"]
+[derekchiang/ring-proxy "1.0.1"]
+#+END_SRC
+
+Then use the following namespace in your code:
+
+#+BEGIN_SRC clojure
+(ns your-ns
+  (:require [derekchiang.ring-proxy :refer [wrap-proxy wrap-dynamic-proxy add-dynamic-proxy remove-dynamic-proxy clear-dynamic-proxies]]))
 #+END_SRC
 
 *** Dynamic Proxy
@@ -36,6 +43,12 @@ To remove a proxy path:
 
 #+BEGIN_SRC clojure
 (remove-dynamic-proxy id)
+#+END_SRC
+
+To remove all dynamic proxies:
+
+#+BEGIN_SRC clojure
+(clear-dynamic-proxies)
 #+END_SRC
 
 For instance: 

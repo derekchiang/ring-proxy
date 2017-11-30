@@ -1,8 +1,8 @@
-(ns derekchiang.ring-proxy.core-test
+(ns derekchiang.ring-proxy-test
   (:require [clojure.test :refer :all]
             [ring.adapter.jetty :refer [run-jetty]]
             [clj-http.client :as client]
-            [derekchiang.ring-proxy.core :refer :all]))
+            [derekchiang.ring-proxy :refer :all]))
 
 (defn proxy-handler [request]
   {:status 200

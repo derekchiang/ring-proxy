@@ -1,4 +1,4 @@
-(ns derekchiang.ring-proxy.core
+(ns derekchiang.ring-proxy
   (:require [clojure.tools.logging :as log]
             [clojure.string :refer [join split replace-first]]
             [ring.middleware.cookies :as cookies]
