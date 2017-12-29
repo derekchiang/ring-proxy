@@ -23,47 +23,52 @@ Then use the following namespace in your code:
 
 A dynamic proxy is one whose behavior can be modified after it's created.
 Specifically, a dynamic proxy starts as a no-op (i.e. proxying nothing), and
-later you may use ~add-dynamic-proxy~ and ~remove-dynamic-proxy~ to add or
-remove proxy paths.
+later you may use the ~add~ and ~remove~ functions to add or remove proxy paths.
 
 To create a dynamic proxy:
 
 #+BEGIN_SRC clojure
-(wrap-dynamic-proxy handler)
+(let [[wrap add remove clear] (dynamic-proxy)]
+  (wrap handler))
 #+END_SRC
 
 To add a proxy path (refer to the "Static Proxy" section for details on the
 arguments):
 
 #+BEGIN_SRC clojure
-(add-dynamic-proxy id proxied-path remote-uri-base & [http-opts])
+(add id proxied-path remote-uri-base & [http-opts])
 #+END_SRC
 
 To remove a proxy path:
 
 #+BEGIN_SRC clojure
-(remove-dynamic-proxy id)
+(remove id)
 #+END_SRC
 
 To remove all dynamic proxies:
 
 #+BEGIN_SRC clojure
-(clear-dynamic-proxies)
+(clear)
 #+END_SRC
 
 For instance: 
 
 #+BEGIN_SRC clojure
 ;; Start the proxy
-(-> handler
-  wrap-dynamic-proxy
- (run-jetty {:port 3000}))
+(let [[wrap add remove clear] (dynamic-proxy)]
+  (-> handler
+      wrap
+      (run-jetty {:port 3000}))
 
-;; Add a proxy path
-(add-dynamic-proxy :some-id "/remote" "http://some-remote-uri")
+  ;; Add a proxy path
+  (add :some-id "/remote" "http://some-remote-uri")
 
-;; Remove the proxy path
-(remove-dynamic-proxy :some-id)
+  ;; Remove the proxy path
+  (remove :some-id)
+
+  ;; Clear all proxy paths
+  (clear))
+
 #+END_SRC
 
 *** Static Proxy

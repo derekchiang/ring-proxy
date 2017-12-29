@@ -69,39 +69,35 @@
          (proxy-request req proxied-path remote-uri-base http-opts)
          (handler req))))))
 
-(def proxy-opts (atom {}))
-
-(defn add-dynamic-proxy
-  "Add a proxy.
-
-  The proxy is identified by `id` which can then be used to remove the proxy.
-
-  `args` are the arguments that you would normally pass to `wrap-proxy`, minus
-  the `handler` argument."
-  [id & args]
-  (swap! proxy-opts assoc id args))
-
-(defn remove-dynamic-proxy
-  "Remove the proxy identified by `id`. If the proxy doesn't exist, nothing
-  happens."
-  [id]
-  (swap! proxy-opts dissoc id))
-
-(defn clear-dynamic-proxies
-  "Remove all dynamic proxies that have been added via `add-dynamic-proxy`."
-  []
-  (reset! proxy-opts {}))
-
 (defn- apply-wrap-proxy [handler opts]
   (apply wrap-proxy handler opts))
 
-(defn wrap-dynamic-proxy
-  "A Ring middleware that adds a set of dynamically configured proxies. The
-  proxies are added and removed via `add-dynamic-proxy` and
-  `remove-dynamic-proxy`."
-  [handler]
-  (fn [req]
-    ((->> @proxy-opts
-          vals
-          (reduce apply-wrap-proxy handler)) req)))
+(defn dynamic-proxy
+  "Return functions `wrap`, `add`, `remove`, and `clear`, where:
+
+  * `wrap` is a ring middleware that adds dynamic proxying behavior.
+
+  * `add` adds a new proxy.  It takes `[id & args]`, where `id` identifies the
+  proxy, and `args` are the arguments that you would normally pass to
+  `wrap-proxy`, minus the `handler` argument.
+
+  * `remove` removes a proxy.  It takes `id` which identifies the proxy to be
+  removed.
+
+  * `clear` removes all existing proxies."
+  []
+  (let [;; A map from IDs to proxies
+        *proxies* (atom {})
+        wrap (fn [handler]
+               (fn [req]
+                 ((->> @*proxies*
+                       vals
+                       (reduce apply-wrap-proxy handler)) req)))
+        add (fn [id & args]
+              (swap! *proxies* assoc id args))
+        remove (fn [id]
+                 (swap! *proxies* dissoc id))
+        clear (fn []
+                (reset! *proxies* {}))]
+    [wrap add remove clear]))
 

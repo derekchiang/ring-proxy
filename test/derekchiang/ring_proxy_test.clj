@@ -36,10 +36,11 @@
                    (.stop proxied))))))
 
 (deftest test-dynamic-proxy
-  (let [proxy (-> proxy-handler
-                wrap-dynamic-proxy
-                (run-jetty {:port 3000
-                            :join? false}))
+  (let [[wrap add remove clear] (dynamic-proxy)
+        proxy (-> proxy-handler
+                  wrap
+                  (run-jetty {:port 3000
+                              :join? false}))
         proxied (run-jetty proxied-handler {:port 3001
                                             :join? false})]
     (try
@@ -49,13 +50,13 @@
                    (= (:status response) 200))
               (str response))))
       (testing "after adding proxy"
-        (add-dynamic-proxy :first "/" "http://localhost:3001")
+        (add :first "/" "http://localhost:3001")
         (let [response (client/get "http://localhost:3000")]
           (is (and (= (:body response) "proxied")
                    (= (:status response) 200))
               (str response))))
       (testing "after removing proxy"
-        (remove-dynamic-proxy :first)
+        (remove :first)
         (let [response (client/get "http://localhost:3000")]
           (is (and (= (:body response) "proxy")
                    (= (:status response) 200))
@@ -63,4 +64,4 @@
       (finally (do
                  (.stop proxy)
                  (.stop proxied)
-                 (clear-dynamic-proxies))))))
+                 (clear))))))

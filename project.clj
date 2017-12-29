@@ -1,4 +1,4 @@
-(defproject derekchiang/ring-proxy "1.0.1"
+(defproject derekchiang/ring-proxy "1.0.2"
   :description "Dynamic and static proxy for Ring"
   :url "https://github.com/derekchiang/ring-proxy"
   :license {:name "Apache License v2.0"
